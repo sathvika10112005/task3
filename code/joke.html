@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Random Joke</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    header, footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 1em;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 10px;
+      text-decoration: none;
+    }
+
+    .container {
+      padding: 30px;
+      text-align: center;
+    }
+
+    #joke {
+      font-size: 1.5em;
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 1em;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Get a Random Joke</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="quiz.html">Quiz</a>
+      <a href="joke.html">Joke</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <p>Click the button to get a joke!</p>
+    <button onclick="getJoke()">Get Joke</button>
+    <div id="joke"></div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 My Web Project</p>
+  </footer>
+
+  <script>
+    async function getJoke() {
+      const jokeDiv = document.getElementById("joke");
+      jokeDiv.textContent = "Loading joke...";
+
+      try {
+        const res = await fetch("https://official-joke-api.appspot.com/random_joke");
+        const data = await res.json();
+        jokeDiv.innerHTML = `<p>${data.setup}</p><p><strong>${data.punchline}</strong></p>`;
+      } catch (error) {
+        jokeDiv.textContent = "Failed to load joke. Please try again.";
+        console.error("Error fetching joke:", error);
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Responsive Image Carousel</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    header, footer {
+      background-color: #333;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    main {
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .carousel {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .carousel-images {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .carousel-images img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      flex-shrink: 0;
+      border-radius: 8px;
+    }
+
+    .controls {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+    }
+
+    .control-btn {
+      background-color: rgba(0, 0, 0, 0.5);
+      border: none;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+      padding: 10px 15px;
+    }
+
+    @media (max-width: 600px) {
+      .control-btn {
+        font-size: 1.5rem;
+        padding: 6px 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Welcome to My Website</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="quiz.html">Quiz</a>
+      <a href="joke.html">Joke</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Image Carousel</h2>
+    <div class="carousel">
+      <div class="carousel-images" id="carouselImages">
+        <img src="https://picsum.photos/id/1015/900/500" alt="Image 1" />
+        <img src="https://picsum.photos/id/1016/900/500" alt="Image 2" />
+        <img src="https://picsum.photos/id/1018/900/500" alt="Image 3" />
+        <img src="https://picsum.photos/id/1024/900/500" alt="Image 4" />
+        <img src="https://picsum.photos/id/1035/900/500" alt="Image 5" />
+      </div>
+      <div class="controls">
+        <button class="control-btn" onclick="prevSlide()">❮</button>
+        <button class="control-btn" onclick="nextSlide()">❯</button>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 My Website</p>
+  </footer>
+
+  <script>
+    const carousel = document.getElementById("carouselImages");
+    let index = 0;
+
+    function showSlide(i) {
+      const totalSlides = carousel.children.length;
+      index = (i + totalSlides) % totalSlides;
+      carousel.style.transform = `translateX(${-index * 100}%)`;
+    }
+
+    function nextSlide() {
+      showSlide(index + 1);
+    }
+
+    function prevSlide() {
+      showSlide(index - 1);
+    }
+
+    // Auto slide every 5 seconds
+    setInterval(() => showSlide(index + 1), 5000);
+  </script>
+</body>
+</html>
+
